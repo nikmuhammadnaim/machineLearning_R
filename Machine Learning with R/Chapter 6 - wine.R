@@ -1,4 +1,4 @@
-# ----Classification and Regression Trees---
+# ----Numeric Prediction Trees: Regression Trees and Model Trees---
 # Background:
 # (a) Despite the name, regression trees do not use linear regression methods. 
 # (b) They make predictions based on the average value of examples that reach a leaf.
@@ -36,7 +36,6 @@ sdr_b
 #     (no need to normalize or standardize)
 
 # ----Example: Estimating the quality of wines with regression trees and model trees----
-
 # -----------------------------------------------------------------
 # Exploratory Data Analysis
 # -----------------------------------------------------------------
@@ -56,6 +55,7 @@ white_wine %>%
         panel.grid.major.y = element_line(color = "gray"),
         axis.line.x = element_blank()) +
   labs(x = "Quality", y = "Count")
+
 
 
 # -----------------------------------------------------------------
@@ -80,12 +80,12 @@ white_wine_train %>% select(quality) %>% table() %>% prop.table() * 100
 wine_test %>% select(quality) %>% table() %>% prop.table() * 100
 white_wine_test %>% select(quality) %>% table() %>% prop.table() * 100
 
-
 # Build our cart model
 library(rpart)
 m.rpart <- rpart(quality ~ ., data = white_wine_train)
 
 my_model <- rpart(quality ~ ., data = wine_train)
+
 
 # .....Interpreting the model.....
 # The number of examples reaching each node is indicated after the splitting condition.
@@ -99,24 +99,43 @@ my_model
 library(rpart.plot)
 rpart.plot(m.rpart, digits = 3)
 
-# fallen.leaves forces the leaf nodes to be alligned at the bottom of the plot
+# Basic plotting with rpart.plot. The fallen.leaves forces the leaf nodes to be alligned at the bottom of the plot
 rpart.plot(m.rpart, digits = 4, fallen.leaves = TRUE, type = 3, extra = 101)
 rpart.plot(my_model, digits = 4, fallen.leaves = TRUE, type = 3, extra = 101)
+
+# Advance plotting with prp function
+prp(main = "Estimating Quality of White Wine with Classification and Regression Trees (CART)",
+    cex.main = 1.2,
+    cex = 0.69,
+    x = my_model,
+    digits = 4,
+    fallen.leaves = TRUE,
+    type = 3,
+    extra = 101,
+    branch.lty = 2,                  # branch line type
+    faclen = 0,
+    split.suffix = "?",              # put "?" after split text
+    split.box.col = "lightpink",     # split boxes color
+    split.border.col = "black",      # split boxes border color
+    split.round = 0.7,               # smooth the edges of split boxes
+    shadow.col = "pink")
+
 
 
 # -----------------------------------------------------------------
 # Evaluating Model Performace
 # -----------------------------------------------------------------
-
+# We use predict() function to test our model which will return estimated numeric value for the outcome variable.
 p.rpart <- predict(m.rpart, white_wine_test)
 my_prediction <- predict(my_model, wine_test)
 
 # The findings suggests that the model is not correctly identifying the extreme cases 
 summary(p.rpart)
-summary(white_wine$quality)
+summary(white_wine_test$quality)
 summary(my_prediction)
+summary(wine_test$quality)
 
-# Use correlation to measure the relationship between the predictions and the true value
+# Use correlation to measure the relationship between the predictions and the true value.
 cor(p.rpart, white_wine_test$quality)
 cor(my_prediction, wine_test$quality)
 
@@ -149,24 +168,29 @@ library(RWeka)
 m.m5p <- M5P(quality ~ ., data = white_wine_train)
 m.m5p
 
+my_m5p <- M5P(quality ~ ., data = wine_train)
+my_m5p
+
 # The split can be very similar to the regression tree.
 # A key difference, however is that the nodes terminate not in a numeric prediction, but a linear model. 
 # The values can be interpreted exactly the same as multiple regression models. 
+# Effects estimated by each linear model (LM1, LM2, etc.) apply only to wine samples reaching this node
+# Use the summary() function for statistics of the model on the training data.
+summary(m.m5p)
+summary(my_m5p)
+
+# Check model performance on the test dataset
+p.m5p <- predict(m.m5p, white_wine_test)
+my_m5p_test <- predict(my_m5p, wine_test)
+
+MAE(white_wine_test$quality, p.m5p)
+MAE(wine_test$quality, my_m5p_test)
+
+# This is a slight improvement to the rpart model. 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# ---Conclusion---
+# There are 2 forms of decision trees:
+# a) Regression trees
+# b) Model trees
