@@ -9,3 +9,4 @@ My playground for anything related to Machine Learning in R programming language
 
 ## Sources
 * [Machine Learning with R - Second Edition](https://github.com/dataspelunking)
+* [H2O Online Tutorials](https://github.com/h2oai/h2o-tutorials)
