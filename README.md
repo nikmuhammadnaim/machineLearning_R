@@ -1,7 +1,22 @@
 # machineLearning_R
 
-My playground for anything related to Machine Learning in R programming language.
+My playground for anything related to Machine Learning in R programming language. Content of this git is based on various books and online tutorials.
 
+## Machine Learning Algorithms Learned
+
+* Supervised Learning:
+  1) Linear Regression
+  2) Decision Trees
+  3) Naive Bayes
+  4) Logistic Regression
+  5) K-NN
+  6) Artificial Neural Network
+  7) Support Vector Machine
+  8) Ensemble
+
+* Unsupervised Learning:  
+   1) K-Means Clustering  
+   2) Hierarchical clustering
 
 ## Some Cool R Plots
 * CART
@@ -9,4 +24,5 @@ My playground for anything related to Machine Learning in R programming language
 
 ## Sources
 * [Machine Learning with R - Second Edition](https://github.com/dataspelunking)
+* [An Introduction to Statistical Learning - with Applications in R](http://www-bcf.usc.edu/~gareth/ISL/)
 * [H2O Online Tutorials](https://github.com/h2oai/h2o-tutorials)
