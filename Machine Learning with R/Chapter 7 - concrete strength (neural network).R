@@ -1,9 +1,11 @@
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 #    Modeling the Strength of Concrete    
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
 library(tidyverse)
 library(psych)
 library(caTools)
+library(neuralnet)
 
 # -----------------------------------------------------------------
 # Exploratory Data Analysis
@@ -36,7 +38,8 @@ normalize <- function(x) {
 }
 
 # Normalize all columns
-concrete_norm <- concrete %>% mutate_all(funs(normalize(.)))
+concrete_norm <- concrete %>% mutate_all(funs(normalize))
+concrete_norm
 
 # Check that the data have normalized
 summary(concrete_norm$strength)
@@ -61,8 +64,6 @@ test   <- concrete_norm %>% filter(!strata)
 
 # We are going to use the neuralnet package. It is the most widely used and easy to understand neural network package.
 # However, it's limited to a single layer of hidden nodes.
-library(neuralnet)
-
 concrete_model <- neuralnet(strength ~ cement + slag + ash + water + superplastic + coarseagg + fineagg + age, 
                             data = concrete_train)
 ann_model <- neuralnet(strength ~ cement + slag + ash + water + superplastic + coarseagg + fineagg + age, 
@@ -72,6 +73,8 @@ ann_model <- neuralnet(strength ~ cement + slag + ash + water + superplastic + c
 plot(concrete_model, rep = "best")
 plot(concrete_model)
 plot(ann_model)
+plot(ann_model, rep = "best")
+
 
 # There is one input node for each of the eight features, followed by a single hidden node and a single output node
 # that predict the concrete strength. At the bottom of the plot, R reports the number of training steps and an error
@@ -113,6 +116,7 @@ ann_model2 <- neuralnet(strength ~ cement + slag + ash + water + superplastic + 
 plot(concrete_model2)
 plot(ann_model2)
 plot(concrete_model2, rep = "best")
+plot(ann_model2, rep = "best")
 
 # Evaluate the new model
 concrete_results2 <- compute(concrete_model2, concrete_test[, 1:8])
