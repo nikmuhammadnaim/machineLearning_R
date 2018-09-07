@@ -6,13 +6,13 @@ My playground for anything related to Machine Learning in R programming language
 
 * Supervised Learning:
   1) Linear Regression
-  2) Decision Trees
-  3) Naive Bayes
-  4) Logistic Regression
+  2) Logistic Regression
+  3) Decision Trees
+  4) Naive Bayes
   5) K-NN
   6) Artificial Neural Network
   7) Support Vector Machine
-  8) Ensemble
+  8) Deep Learning
 
 * Unsupervised Learning:  
    1) K-Means Clustering  
@@ -33,4 +33,5 @@ My playground for anything related to Machine Learning in R programming language
 ## Sources
 * [Machine Learning with R - Second Edition](https://github.com/dataspelunking)
 * [An Introduction to Statistical Learning - with Applications in R](http://www-bcf.usc.edu/~gareth/ISL/)
+* [R Deep Learning Projects](https://www.packtpub.com/big-data-and-business-intelligence/r-deep-learning-projects?utm_source=github&utm_medium=repository&utm_campaign=9781788478403)
 * [H2O Online Tutorials](https://github.com/h2oai/h2o-tutorials)
