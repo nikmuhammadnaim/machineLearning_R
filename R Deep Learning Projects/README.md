@@ -2,7 +2,7 @@
 
 Below are some of the important concepts and R commands I learned from this cool book written by Yuxi (Hayden) Liu and 	Pablo Maldonado
 
-The R codes from the authors can be found at the publisher's (github)[https://github.com/PacktPublishing/R-Deep-Learning-Projects].
+The R codes from the authors can be found at the publisher's [github](https://github.com/PacktPublishing/R-Deep-Learning-Projects).
 
 The R codes in this git are based on the book with me trying to use tidyverse concept as much as possible. 
 
@@ -21,9 +21,9 @@ The idea of backpropagation is:
 ### R  
   
 Use `nnet()` to create single layer neural network. 
-  - maxit = maximum number of iterations
+  - size    = number of hidden neurons
+  - maxit   = maximum number of iterations
   - MaxNWts = maximum number of weights
-  - size 
 
 ```R
 model_nn <- nnet(label ~ ., 
