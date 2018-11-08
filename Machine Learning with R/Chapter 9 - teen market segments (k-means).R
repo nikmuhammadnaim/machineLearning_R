@@ -1,4 +1,6 @@
 library(tidyverse)
+library(naniar)
+library(UpSetR)
 
 # Read the data
 teens <- read_csv("Machine Learning with R/Data/snsdata.csv",
@@ -21,6 +23,11 @@ summary(teens)
 
 # Find the number of missing values in the dataset
 sum(is.na(teens))
+
+# Visualize the missing values
+vis_miss(teens, warn_large_data = FALSE)
+
+gg_miss_upset(teens)
 
 # Find number of rows with missing values
 teens %>% filter_all(any_vars(is.na(.))) %>% nrow()
